@@ -1,3 +1,7 @@
 const config = require('@template/config');
 
-module.exports = config({ mode: 'development' });
+const webpackConfig = config({ mode: 'development' });
+webpackConfig.devServer.historyApiFallback = true;
+webpackConfig.output.publicPath = '/';
+
+module.exports = webpackConfig;
