@@ -3,5 +3,5 @@ const path = require('path');
 
 module.exports = config({
   mode: 'production',
-  outputPath: path.resolve(__dirname, '../dist/micro-about'),
+  outputPath: path.resolve(__dirname, '../dist/about'),
 });

@@ -1,0 +1,13 @@
+{
+  "name": "micro-front-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Deberson de Paula <deberson.paula@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  },
+  "scripts": {
+    "start": "http-server dist -o"
+  }
+}
