@@ -1,3 +1,10 @@
+const webpack = require('webpack');
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+
+const rootPath = process.cwd();
+
 /**
  * @param {{
  *  mode: 'development' | 'production',
@@ -5,7 +12,13 @@
  * }} param0
  * @returns
  */
-function webpackConfigFactory({ mode = 'development', port = 9000 }) {
+function webpackConfigFactory({
+  mode = 'development',
+  port = 9000,
+  sourceFile = './src/index.tsx',
+  outputPath = path.resolve(rootPath, './dist'),
+  outputFile = 'bundle.js',
+}) {
   const isEnvDevelopment = mode === 'development';
   const isEnvProduction = mode === 'production';
   const host = 'localhost';
@@ -13,12 +26,14 @@ function webpackConfigFactory({ mode = 'development', port = 9000 }) {
   return {
     mode,
 
-    entry: [path.resolve(__dirname, 'src/index.tsx')].filter(Boolean),
+    entry: [isEnvDevelopment && 'react-hot-loader/patch', sourceFile].filter(
+      Boolean,
+    ),
 
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
-      filename: 'bundle.js',
+      path: outputPath,
+      // publicPath: '/',
+      filename: outputFile,
     },
 
     resolve: {
@@ -31,7 +46,16 @@ function webpackConfigFactory({ mode = 'development', port = 9000 }) {
         {
           test: /\.(ts|tsx|js|mjs|jsx)$/,
           exclude: /node_modules/,
-          loader: 'ts-loader',
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            configFile: false,
+            presets: ['@babel/env', '@babel/react', '@babel/preset-typescript'],
+            plugins: [
+              'react-hot-loader/babel',
+              '@babel/plugin-proposal-class-properties',
+            ],
+          },
         },
         {
           test: /\.css$/i,
@@ -92,7 +116,7 @@ function webpackConfigFactory({ mode = 'development', port = 9000 }) {
     devServer: {
       contentBase: './dist',
       compress: true,
-      port: 9000,
+      port,
       open: true,
       hot: true,
     },
