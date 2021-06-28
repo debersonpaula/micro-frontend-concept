@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "http-server dist -o",
-    "deploy": "node build.js"
+    "deploy": "node build.js",
+    "setup": "node setup.js"
   }
 }

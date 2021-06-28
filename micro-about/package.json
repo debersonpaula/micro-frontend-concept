@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@template/config": "file:../dist/template-config"
+    "@template/config": "file:../template-config"
   }
 }

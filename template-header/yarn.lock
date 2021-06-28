@@ -1001,7 +1001,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@template/config@file:../dist/template-config":
+"@template/config@file:../template-config":
   version "0.0.1"
   dependencies:
     "@babel/core" "7.14.3"
