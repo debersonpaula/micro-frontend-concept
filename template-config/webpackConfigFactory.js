@@ -21,7 +21,6 @@ function webpackConfigFactory({
 }) {
   const isEnvDevelopment = mode === 'development';
   const isEnvProduction = mode === 'production';
-  const host = 'localhost';
 
   return {
     mode,
@@ -32,7 +31,6 @@ function webpackConfigFactory({
 
     output: {
       path: outputPath,
-      // publicPath: '/',
       filename: outputFile,
     },
 
@@ -65,53 +63,18 @@ function webpackConfigFactory({
     },
 
     plugins: [
-      // isEnvProduction &&
-      // new CleanWebpackPlugin({
-      //   dry: false,
-      //   verbose: true,
-      //   cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist/**/*')]
-      // }),
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       new HTMLWebpackPlugin({
         template: './src/index.html',
         inject: true,
       }),
-      // isEnvProduction &&
-      //   new BundleAnalyzerPlugin({
-      //     analyzerMode: "static",
-      //     openAnalyzer: false,
-      //   }),
     ].filter(Boolean),
 
-    // optimization: {
-    //   minimize: true,
-    //   minimizer: [
-    //     new UglifyJsPlugin({
-    //       cache: isEnvDevelopment,
-    //       parallel: true,
-    //       uglifyOptions: {
-    //         compress: isEnvProduction,
-    //         mangle: isEnvProduction,
-    //         beautify: isEnvDevelopment,
-    //       },
-    //       sourceMap: isEnvDevelopment,
-    //     }),
-    //   ],
-    //   usedExports: isEnvProduction,
-    //   sideEffects: isEnvProduction,
-    // },
-
-    // devtool: isEnvProduction ? "source-map" : "cheap-module-eval-source-map",
-
-    // devServer: {
-    //   port,
-    //   host,
-    //   publicPath: "/",
-    //   contentBase: "./src",
-    //   historyApiFallback: true,
-    //   open: true,
-    //   openPage: "",
-    // },
+    optimization: {
+      minimize: isEnvProduction,
+      usedExports: isEnvProduction,
+      sideEffects: isEnvProduction,
+    },
     devtool: 'inline-source-map',
     devServer: {
       contentBase: './dist',
