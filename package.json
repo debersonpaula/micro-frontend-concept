@@ -8,6 +8,7 @@
     "http-server": "^0.12.3"
   },
   "scripts": {
-    "start": "http-server dist -o"
+    "start": "http-server dist -o",
+    "deploy": "node build.js"
   }
 }
